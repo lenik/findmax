@@ -76,4 +76,12 @@ void free_file_list(file_list_t *files);
 int add_file_entry(file_list_t *files, const char *path, const struct stat *st, const options_t *opts);
 int should_include_file(const struct stat *st, const options_t *opts);
 
+// Heap-based optimized traversal (forward declaration for opaque type)
+typedef struct min_heap min_heap_t;
+min_heap_t *create_min_heap(size_t capacity, const options_t *opts);
+void free_min_heap(min_heap_t *heap);
+size_t get_heap_size(min_heap_t *heap);
+file_entry_t *get_heap_entries(min_heap_t *heap);
+int traverse_directory_optimized(const char *path, const options_t *opts, min_heap_t *heap, int current_depth);
+
 #endif

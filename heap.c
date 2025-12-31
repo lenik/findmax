@@ -1,11 +1,12 @@
 #include "findmax.h"
+#include <stdbool.h>
 
-typedef struct {
+struct min_heap {
     file_entry_t *entries;
     size_t size;
     size_t capacity;
     const options_t *opts;
-} min_heap_t;
+};
 
 static int heap_compare(const file_entry_t *a, const file_entry_t *b, const options_t *opts) {
     int result = 0;
@@ -35,9 +36,12 @@ static int heap_compare(const file_entry_t *a, const file_entry_t *b, const opti
             break;
     }
     
-    // For min-heap, we want the smallest elements at the top
-    // If reverse is set, we flip the comparison
-    return opts->reverse ? -result : result;
+    // For heap ordering: when reverse=1 (max first), we want to keep the N largest values
+    // The heap root should be the smallest of those N values
+    // So if a > b, a should be below b in the heap (return positive)
+    // This means we DON'T flip for heap operations - we use natural comparison
+    // The reverse flag only affects final output sorting, not heap maintenance
+    return result;
 }
 
 static void heap_swap(file_entry_t *a, file_entry_t *b) {
@@ -82,7 +86,7 @@ static void heap_sift_down(min_heap_t *heap, size_t index) {
     }
 }
 
-static min_heap_t *create_min_heap(size_t capacity, const options_t *opts) {
+min_heap_t *create_min_heap(size_t capacity, const options_t *opts) {
     min_heap_t *heap = malloc(sizeof(min_heap_t));
     if (!heap) return NULL;
     
@@ -98,11 +102,19 @@ static min_heap_t *create_min_heap(size_t capacity, const options_t *opts) {
     return heap;
 }
 
-static void free_min_heap(min_heap_t *heap) {
+void free_min_heap(min_heap_t *heap) {
     if (heap) {
         free(heap->entries);
         free(heap);
     }
+}
+
+size_t get_heap_size(min_heap_t *heap) {
+    return heap ? heap->size : 0;
+}
+
+file_entry_t *get_heap_entries(min_heap_t *heap) {
+    return heap ? heap->entries : NULL;
 }
 
 static int heap_insert(min_heap_t *heap, const file_entry_t *entry) {
@@ -114,19 +126,45 @@ static int heap_insert(min_heap_t *heap, const file_entry_t *entry) {
         return 0;
     } else {
         // Heap is full, check if new entry should replace the minimum
-        if (heap_compare(entry, &heap->entries[0], heap->opts) > 0) {
-            heap->entries[0] = *entry;
-            heap_sift_down(heap, 0);
+        // When reverse=1 (max first), we keep N largest values, root is smallest of them
+        // When reverse=0 (min first), we keep N smallest values, root is largest of them
+        // So we compare: if new entry is "better" than root, replace it
+        int cmp = heap_compare(entry, &heap->entries[0], heap->opts);
+        if (heap->opts->reverse) {
+            // Max first: replace root if new entry is larger (positive comparison)
+            if (cmp > 0) {
+                heap->entries[0] = *entry;
+                heap_sift_down(heap, 0);
+            }
+        } else {
+            // Min first: replace root if new entry is smaller (negative comparison)
+            if (cmp < 0) {
+                heap->entries[0] = *entry;
+                heap_sift_down(heap, 0);
+            }
         }
         return 0;
     }
 }
 
 // Optimized file traversal using heap for O(1) performance
-int traverse_directory_optimized(const char *path, const options_t *opts, min_heap_t *heap) {
+int traverse_directory_optimized(const char *path, const options_t *opts, min_heap_t *heap, int current_depth) {
     struct stat st;
     
-    if (lstat(path, &st) != 0) {
+    // Check depth limit
+    if (opts->max_depth >= 0 && current_depth > opts->max_depth) {
+        return 0;
+    }
+    
+    // Get file/directory stats
+    int stat_result;
+    if (opts->dereference) {
+        stat_result = stat(path, &st);
+    } else {
+        stat_result = lstat(path, &st);
+    }
+    
+    if (stat_result != 0) {
         if (!opts->quiet) {
             perror(path);
         }
@@ -180,20 +218,21 @@ int traverse_directory_optimized(const char *path, const options_t *opts, min_he
         
         struct dirent *entry;
         while ((entry = readdir(dir)) != NULL) {
+            // Skip . and ..
             if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
                 continue;
             }
             
             char full_path[MAX_PATH_LEN];
             int ret = snprintf(full_path, sizeof(full_path), "%s/%s", path, entry->d_name);
-            if (ret >= sizeof(full_path)) {
+            if (ret < 0 || (size_t)ret >= sizeof(full_path)) {
                 if (!opts->quiet) {
                     fprintf(stderr, "findmax: path too long: %s/%s\n", path, entry->d_name);
                 }
                 continue;
             }
             
-            traverse_directory_optimized(full_path, opts, heap);
+            traverse_directory_optimized(full_path, opts, heap, current_depth + 1);
         }
         
         closedir(dir);
@@ -235,7 +274,7 @@ int main_optimized(int argc, char *argv[]) {
     
     // Traverse all paths using optimized heap approach
     for (int i = 0; i < path_count; i++) {
-        if (traverse_directory_optimized(paths[i], &opts, heap) != 0) {
+        if (traverse_directory_optimized(paths[i], &opts, heap, 0) != 0) {
             if (!opts.quiet) {
                 fprintf(stderr, "findmax: error processing '%s'\n", paths[i]);
             }

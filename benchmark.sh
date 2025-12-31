@@ -82,8 +82,8 @@ function benchmark_directory() {
         return 1
     fi
     
-    # Benchmark findmax
-    if ! findmax_result=$(time_command "./findmax -R -r -${NUM_FILES} '$dir'"); then
+    # Benchmark findmax (sort by size, files only, recursive, reverse order)
+    if ! findmax_result=$(time_command "./findmax -S -f -R -r -${NUM_FILES} '$dir'"); then
         _log0 "Error: Failed to run findmax on $dir"
         return 1
     fi

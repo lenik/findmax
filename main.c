@@ -30,33 +30,60 @@ int main(int argc, char *argv[]) {
         allocated_paths = 1;
     }
     
-    // Create file list to store results
-    file_list_t *files = create_file_list();
-    if (!files) {
+    // Use heap-based optimization: maintain only top N files during traversal
+    // This avoids collecting all files and sorting them, which is much faster for large directories
+    min_heap_t *heap = create_min_heap(opts.num_files, &opts);
+    if (!heap) {
         fprintf(stderr, "findmax: memory allocation failed\n");
+        if (allocated_paths) {
+            free(paths);
+        }
         return 1;
     }
     
-    // Traverse all specified paths
+    // Traverse all specified paths using optimized heap approach
     for (int i = 0; i < path_count; i++) {
-        if (traverse_directory(paths[i], &opts, files) != 0) {
+        if (traverse_directory_optimized(paths[i], &opts, heap, 0) != 0) {
             if (!opts.quiet) {
                 fprintf(stderr, "findmax: error processing '%s'\n", paths[i]);
             }
         }
     }
     
-    // Sort files according to options
-    sort_files(files, &opts);
+    // Extract results from heap and sort them properly for output
+    file_list_t *results = create_file_list();
+    if (!results) {
+        fprintf(stderr, "findmax: memory allocation failed\n");
+        free_min_heap(heap);
+        if (allocated_paths) {
+            free(paths);
+        }
+        return 1;
+    }
+    
+    // Copy heap contents to results
+    file_entry_t *heap_entries = get_heap_entries(heap);
+    size_t heap_size = get_heap_size(heap);
+    
+    for (size_t i = 0; i < heap_size; i++) {
+        if (add_file_entry(results, heap_entries[i].path, &heap_entries[i].st, &opts) != 0) {
+            fprintf(stderr, "findmax: memory allocation failed\n");
+            break;
+        }
+    }
+    
+    // Sort results for proper output order (heap maintains min at top, we need final sort)
+    sort_files(results, &opts);
     
     // Print results (top N files)
-    size_t print_count = (files->count < (size_t)opts.num_files) ? files->count : (size_t)opts.num_files;
+    size_t print_count = (results->count < (size_t)opts.num_files) ? results->count : (size_t)opts.num_files;
     for (size_t i = 0; i < print_count; i++) {
-        print_file_entry(&files->entries[i], &opts);
+        print_file_entry(&results->entries[i], &opts);
     }
     
     // Cleanup
-    free_file_list(files);
+    free_file_list(results);
+    free_min_heap(heap);
     if (allocated_paths) {
         free(paths);
     }

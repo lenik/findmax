@@ -5,7 +5,7 @@ TARGET = findmax
 LIBRARY = libfindmax.so.1.0.0
 LIBRARY_SONAME = libfindmax.so.1
 LIBRARY_LINK = libfindmax.so
-SOURCES = main.c file_ops.c format.c
+SOURCES = main.c file_ops.c format.c heap.c
 LIB_SOURCES = file_ops.c format.c
 TEST_SOURCES = test_findmax.c file_ops.c format.c
 OBJECTS = $(SOURCES:.c=.o)
@@ -139,9 +139,9 @@ check: test integration-test
 # Run benchmark
 benchmark: $(TARGET)
 	@echo "Running benchmark..."
-	./benchmark.sh --csv --markdown --pdf \
+	./benchmark.sh -v --csv --markdown --pdf \
 	--output benchmark_report \
-	/usr/share/man
+	/usr/* /home/github/*/
 
 # Debug build
 debug: CFLAGS += -g -DDEBUG
