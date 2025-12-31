@@ -157,8 +157,12 @@ void format_output(const file_entry_t *entry, const char *format, char *output, 
                     
                 case 'N': // quoted file name with dereference if symbolic link
                     // For simplicity, just quote the name
-                    snprintf(temp_buf, sizeof(temp_buf), "'%s'", entry->path);
-                    replacement = temp_buf;
+                    if (strlen(entry->path) < sizeof(temp_buf) - 3) {
+                        snprintf(temp_buf, sizeof(temp_buf), "'%s'", entry->path);
+                        replacement = temp_buf;
+                    } else {
+                        replacement = "'[path too long]'";
+                    }
                     break;
                     
                 case 's': // total size, in bytes

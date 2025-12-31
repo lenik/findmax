@@ -142,7 +142,7 @@ int traverse_directory_depth(const char *path, const options_t *opts, file_list_
             // Build full path
             char full_path[MAX_PATH_LEN];
             int ret = snprintf(full_path, sizeof(full_path), "%s/%s", path, entry->d_name);
-            if (ret >= sizeof(full_path)) {
+            if (ret < 0 || (size_t)ret >= sizeof(full_path)) {
                 if (!opts->quiet) {
                     fprintf(stderr, "findmax: path too long: %s/%s\n", path, entry->d_name);
                 }
@@ -166,6 +166,7 @@ static int compare_time(const void *a, const void *b, int reverse) {
     time_t diff = fa->sort_time - fb->sort_time;
     if (diff == 0) return 0;
     
+    // Normal ascending order: smaller values first
     int result = (diff > 0) ? 1 : -1;
     return reverse ? -result : result;
 }
@@ -177,6 +178,7 @@ static int compare_size(const void *a, const void *b, int reverse) {
     off_t diff = fa->sort_size - fb->sort_size;
     if (diff == 0) return 0;
     
+    // Normal ascending order: smaller values first
     int result = (diff > 0) ? 1 : -1;
     return reverse ? -result : result;
 }

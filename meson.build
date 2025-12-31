@@ -5,8 +5,7 @@ project('findmax', 'c',
     'warning_level=2',
     'c_std=c99',
     'optimization=2',
-  ],
-  authors: ['Lenik <findmax@bodz.net>']
+  ]
 )
 
 # Compiler flags

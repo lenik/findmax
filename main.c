@@ -11,6 +11,7 @@ int main(int argc, char *argv[]) {
     strcpy(opts.format, "%n");
     opts.num_files = DEFAULT_NUM_FILES;
     opts.max_depth = -1; // No limit by default
+    opts.reverse = 1; // Default: max first (reverse normal order)
     
     // Set locale for proper string comparison
     setlocale(LC_ALL, "");
@@ -49,8 +50,8 @@ int main(int argc, char *argv[]) {
     sort_files(files, &opts);
     
     // Print results (top N files)
-    int print_count = (files->count < opts.num_files) ? files->count : opts.num_files;
-    for (int i = 0; i < print_count; i++) {
+    size_t print_count = (files->count < (size_t)opts.num_files) ? files->count : (size_t)opts.num_files;
+    for (size_t i = 0; i < print_count; i++) {
         print_file_entry(&files->entries[i], &opts);
     }
     
@@ -65,10 +66,11 @@ int main(int argc, char *argv[]) {
 
 void print_usage(void) {
     printf("Usage: findmax [OPTIONS] FILE...\n");
-    printf("Find files with maximum values for specified criteria.\n\n");
+    printf("Find files with maximum values for specified criteria.\n");
+    printf("Default behavior: show largest/newest files first (max-first).\n\n");
     printf("Options:\n");
     printf("  -R, --recursive     recursive into directories\n");
-    printf("  -r, --reverse       reversed order\n");
+    printf("  -r, --reverse       normal order (smallest/oldest first)\n");
     printf("  -u                  access time\n");
     printf("  -c                  metadata change time\n");
     printf("  -t                  file time (modification time)\n");
@@ -139,7 +141,7 @@ int parse_arguments(int argc, char *argv[], options_t *opts, char ***paths, int 
                 opts->recursive = 1;
                 break;
             case 'r':
-                opts->reverse = 1;
+                opts->reverse = 0;  // --reverse means normal order (min first)
                 break;
             case 'u':
                 opts->sort_type = SORT_ATIME;

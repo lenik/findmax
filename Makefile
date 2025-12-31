@@ -7,20 +7,28 @@ LIBRARY_SONAME = libfindmax.so.1
 LIBRARY_LINK = libfindmax.so
 SOURCES = main.c file_ops.c format.c
 LIB_SOURCES = file_ops.c format.c
+TEST_SOURCES = test_findmax.c file_ops.c format.c
 OBJECTS = $(SOURCES:.c=.o)
 LIB_OBJECTS = $(LIB_SOURCES:.c=.o)
+TEST_OBJECTS = $(TEST_SOURCES:.c=.o)
 
 # Installation directories
 PREFIX ?= /usr/local
 DESTDIR ?=
 BINDIR = $(PREFIX)/bin
-LIBDIR = $(PREFIX)/lib
+# Architecture-dependent library directory
+MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH 2>/dev/null || echo "x86_64-linux-gnu")
+LIBDIR = $(PREFIX)/lib/$(MULTIARCH)
 INCLUDEDIR = $(PREFIX)/include
 MANDIR = $(PREFIX)/share/man/man1
 COMPLETIONDIR = $(PREFIX)/share/bash-completion/completions
 
 # Default target
 all: $(TARGET) $(LIBRARY)
+
+# Build test executable
+test_findmax: $(TEST_OBJECTS)
+	$(CC) $(TEST_OBJECTS) -o test_findmax $(LDFLAGS)
 
 # Build the main executable
 $(TARGET): $(OBJECTS)
@@ -43,7 +51,7 @@ optimized: $(TARGET)
 
 # Clean build artifacts
 clean:
-	rm -f $(OBJECTS) $(LIB_OBJECTS) $(TARGET) $(LIBRARY) $(LIBRARY_SONAME) $(LIBRARY_LINK)
+	rm -f $(OBJECTS) $(LIB_OBJECTS) $(TEST_OBJECTS) $(TARGET) $(LIBRARY) $(LIBRARY_SONAME) $(LIBRARY_LINK) test_findmax
 
 # Install to system with DESTDIR and PREFIX support
 install: $(TARGET) $(LIBRARY) findmax.1 findmax-completion.bash
@@ -61,36 +69,52 @@ install: $(TARGET) $(LIBRARY) findmax.1 findmax-completion.bash
 	install -m 644 findmax-completion.bash $(DESTDIR)$(COMPLETIONDIR)/findmax
 	ldconfig -n $(DESTDIR)$(LIBDIR) 2>/dev/null || true
 
-# Install symlinks to development directory (hardcoded /usr)
-install-symlinks:
-	install -d /usr/bin
-	install -d /usr/lib
-	install -d /usr/include
-	install -d /usr/share/man/man1
-	install -d /usr/share/bash-completion/completions
-	ln -sf $(PWD)/$(TARGET) /usr/bin/$(TARGET)
-	ln -sf $(PWD)/$(LIBRARY) /usr/lib/$(LIBRARY)
-	ln -sf $(PWD)/$(LIBRARY) /usr/lib/$(LIBRARY_SONAME)
-	ln -sf $(PWD)/$(LIBRARY) /usr/lib/$(LIBRARY_LINK)
-	ln -sf $(PWD)/findmax.h /usr/include/findmax.h
-	ln -sf $(PWD)/findmax.1 /usr/share/man/man1/findmax.1
-	ln -sf $(PWD)/findmax-completion.bash /usr/share/bash-completion/completions/findmax
-	ldconfig 2>/dev/null || true
-
 # Uninstall from system
 uninstall:
-	rm -f $(DESTDIR)$(BINDIR)/$(TARGET)
-	rm -f $(DESTDIR)$(LIBDIR)/$(LIBRARY)
-	rm -f $(DESTDIR)$(LIBDIR)/$(LIBRARY_SONAME)
-	rm -f $(DESTDIR)$(LIBDIR)/$(LIBRARY_LINK)
-	rm -f $(DESTDIR)$(INCLUDEDIR)/findmax.h
-	rm -f $(DESTDIR)$(MANDIR)/findmax.1
-	rm -f $(DESTDIR)$(COMPLETIONDIR)/findmax
+	sudo rm -f $(DESTDIR)$(BINDIR)/$(TARGET)
+	sudo rm -f $(DESTDIR)$(LIBDIR)/$(LIBRARY)
+	sudo rm -f $(DESTDIR)$(LIBDIR)/$(LIBRARY_SONAME)
+	sudo rm -f $(DESTDIR)$(LIBDIR)/$(LIBRARY_LINK)
+	sudo rm -f $(DESTDIR)$(INCLUDEDIR)/findmax.h
+	sudo rm -f $(DESTDIR)$(MANDIR)/findmax.1
+	sudo rm -f $(DESTDIR)$(COMPLETIONDIR)/findmax
 	ldconfig -n $(DESTDIR)$(LIBDIR) 2>/dev/null || true
 
-# Run tests
-test: $(TARGET)
-	@echo "Running basic tests..."
+# Install symlinks to development directory (hardcoded /usr with arch-dependent lib)
+install-symlinks:
+	sudo install -d /usr/bin
+	sudo install -d /usr/lib/$(MULTIARCH)
+	sudo install -d /usr/include
+	sudo install -d /usr/share/man/man1
+	sudo install -d /usr/share/bash-completion/completions
+	sudo ln -sf $(PWD)/$(TARGET) /usr/bin/$(TARGET)
+	sudo ln -sf $(PWD)/$(LIBRARY) /usr/lib/$(MULTIARCH)/$(LIBRARY)
+	sudo ln -sf $(PWD)/$(LIBRARY) /usr/lib/$(MULTIARCH)/$(LIBRARY_SONAME)
+	sudo ln -sf $(PWD)/$(LIBRARY) /usr/lib/$(MULTIARCH)/$(LIBRARY_LINK)
+	sudo ln -sf $(PWD)/findmax.h /usr/include/findmax.h
+	sudo ln -sf $(PWD)/findmax.1 /usr/share/man/man1/findmax.1
+	sudo ln -sf $(PWD)/findmax-completion.bash /usr/share/bash-completion/completions/findmax
+	ldconfig 2>/dev/null || true
+
+# Uninstall symlinks from development directory
+uninstall-symlinks:
+	sudo rm -f /usr/bin/$(TARGET)
+	sudo rm -f /usr/lib/$(MULTIARCH)/$(LIBRARY)
+	sudo rm -f /usr/lib/$(MULTIARCH)/$(LIBRARY_SONAME)
+	sudo rm -f /usr/lib/$(MULTIARCH)/$(LIBRARY_LINK)
+	sudo rm -f /usr/include/findmax.h
+	sudo rm -f /usr/share/man/man1/findmax.1
+	sudo rm -f /usr/share/bash-completion/completions/findmax
+	ldconfig 2>/dev/null || true
+
+# Run unit tests
+test: test_findmax
+	@echo "Running unit tests..."
+	./test_findmax
+
+# Run integration tests
+integration-test: $(TARGET)
+	@echo "Running integration tests..."
 	@mkdir -p test_dir/subdir
 	@touch test_dir/file1.txt test_dir/file2.txt test_dir/subdir/file3.txt
 	@echo "Test 1: Find latest file in current directory"
@@ -103,10 +127,24 @@ test: $(TARGET)
 	./$(TARGET) -t -F "%n %y" test_dir/
 	@echo "Test 5: Find top 3 files"
 	./$(TARGET) -t -R -3 test_dir/
+	@echo "Test 6: Max depth limiting"
+	./$(TARGET) -t -R --maxdepth=1 test_dir/
+	@echo "Test 7: Dereference test"
+	./$(TARGET) -L -t test_dir/
 	@rm -rf test_dir
+
+# Run all tests
+check: test integration-test
+
+# Run benchmark
+benchmark: $(TARGET)
+	@echo "Running benchmark..."
+	./benchmark.sh --csv --markdown --pdf \
+	--output benchmark_report \
+	/usr/share/man
 
 # Debug build
 debug: CFLAGS += -g -DDEBUG
 debug: $(TARGET)
 
-.PHONY: all clean install uninstall test debug optimized
+.PHONY: all clean install uninstall install-symlinks uninstall-symlinks test integration-test check benchmark debug optimized
