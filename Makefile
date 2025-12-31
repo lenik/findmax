@@ -6,7 +6,7 @@ LIBRARY = libfindmax.so.1.0.0
 LIBRARY_SONAME = libfindmax.so.1
 LIBRARY_LINK = libfindmax.so
 SOURCES = main.c file_ops.c format.c
-LIB_SOURCES = libfindmax.c file_ops.c format.c
+LIB_SOURCES = file_ops.c format.c
 OBJECTS = $(SOURCES:.c=.o)
 LIB_OBJECTS = $(LIB_SOURCES:.c=.o)
 
@@ -33,7 +33,7 @@ $(LIBRARY): $(LIB_OBJECTS)
 	ln -sf $(LIBRARY) $(LIBRARY_LINK)
 
 # Build object files
-%.o: %.c findmax.h libfindmax.h
+%.o: %.c findmax.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Build optimized version with heap
@@ -57,7 +57,6 @@ install: $(TARGET) $(LIBRARY) findmax.1 findmax-completion.bash
 	ln -sf $(LIBRARY) $(DESTDIR)$(LIBDIR)/$(LIBRARY_SONAME)
 	ln -sf $(LIBRARY) $(DESTDIR)$(LIBDIR)/$(LIBRARY_LINK)
 	install -m 644 findmax.h $(DESTDIR)$(INCLUDEDIR)/
-	install -m 644 libfindmax.h $(DESTDIR)$(INCLUDEDIR)/
 	install -m 644 findmax.1 $(DESTDIR)$(MANDIR)/
 	install -m 644 findmax-completion.bash $(DESTDIR)$(COMPLETIONDIR)/findmax
 	ldconfig -n $(DESTDIR)$(LIBDIR) 2>/dev/null || true
@@ -74,7 +73,6 @@ install-symlinks:
 	ln -sf $(PWD)/$(LIBRARY) /usr/lib/$(LIBRARY_SONAME)
 	ln -sf $(PWD)/$(LIBRARY) /usr/lib/$(LIBRARY_LINK)
 	ln -sf $(PWD)/findmax.h /usr/include/findmax.h
-	ln -sf $(PWD)/libfindmax.h /usr/include/libfindmax.h
 	ln -sf $(PWD)/findmax.1 /usr/share/man/man1/findmax.1
 	ln -sf $(PWD)/findmax-completion.bash /usr/share/bash-completion/completions/findmax
 	ldconfig 2>/dev/null || true
@@ -86,7 +84,6 @@ uninstall:
 	rm -f $(DESTDIR)$(LIBDIR)/$(LIBRARY_SONAME)
 	rm -f $(DESTDIR)$(LIBDIR)/$(LIBRARY_LINK)
 	rm -f $(DESTDIR)$(INCLUDEDIR)/findmax.h
-	rm -f $(DESTDIR)$(INCLUDEDIR)/libfindmax.h
 	rm -f $(DESTDIR)$(MANDIR)/findmax.1
 	rm -f $(DESTDIR)$(COMPLETIONDIR)/findmax
 	ldconfig -n $(DESTDIR)$(LIBDIR) 2>/dev/null || true

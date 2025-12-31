@@ -34,7 +34,6 @@ main_sources = [
 ]
 
 lib_sources = [
-  'libfindmax.c',
   'file_ops.c',
   'format.c',
 ]
@@ -42,7 +41,6 @@ lib_sources = [
 # Headers
 headers = [
   'findmax.h',
-  'libfindmax.h',
 ]
 
 # Build shared library
