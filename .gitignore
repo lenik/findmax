@@ -2,10 +2,10 @@
 *.o
 *.so
 *.so.*
-findmax
-libfindmax.a
-test_findmax
 *.exe
+*.a
+findmax
+test_findmax
 
 # Build directories
 build/
