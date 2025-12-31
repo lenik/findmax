@@ -1,0 +1,4 @@
+usr/lib/libfindmax.so
+usr/lib/libfindmax.a
+usr/include/*.h
+usr/lib/pkgconfig/*.pc

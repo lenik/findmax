@@ -1,0 +1,198 @@
+.TH FINDMAX 1 "2026" "findmax 1.0.0" "User Commands"
+.SH NAME
+findmax \- fast file finding utility optimized for maximum value queries
+.SH SYNOPSIS
+.B findmax
+[\fIOPTIONS\fR] [\fIFILE\fR...]
+.SH DESCRIPTION
+.B findmax
+is a fast file finding utility specifically optimized for O(1) queries to find files with maximum values for specified criteria. It can find files based on modification time, access time, creation time, size, or name, with support for custom output formatting and various filtering options.
+.SH OPTIONS
+.TP
+.BR \-R ", " \-\-recursive
+Recursively search into directories.
+.TP
+.BR \-r ", " \-\-reverse
+Sort in reverse order (oldest/smallest first).
+.TP
+.BR \-u
+Sort by access time (atime).
+.TP
+.BR \-c
+Sort by metadata change time (ctime).
+.TP
+.BR \-t
+Sort by modification time (mtime). This is the default.
+.TP
+.BR \-S
+Sort by file size.
+.TP
+.BR \-n ", " \-\-name
+Sort by file name using current locale settings.
+.TP
+.BR \-f ", " \-\-file\-only
+Show only regular files, exclude directories and special files.
+.TP
+.BR \-d ", " \-\-dir\-only
+Show only directories, exclude regular files.
+.TP
+.BR \-L ", " \-\-dereference
+Follow symbolic links (use stat() instead of lstat()).
+.TP
+.BR \-F ", " \-\-format " \fIFMT\fR"
+Use custom output format string. See FORMAT section for details.
+.TP
+.BR \-\fINUM\fR
+Show top NUM files instead of just 1 (default).
+.TP
+.BR \-v ", " \-\-verbose
+Enable verbose output.
+.TP
+.BR \-q ", " \-\-quiet
+Suppress error messages.
+.TP
+.BR \-\-time "=\fIWORD\fR"
+Select which timestamp to use for sorting:
+.RS
+.TP
+.BR atime ", " access ", " use
+Access time
+.TP
+.BR ctime ", " status
+Metadata change time
+.TP
+.BR mtime ", " modification
+Modification time (default)
+.TP
+.BR birth ", " creation
+Birth/creation time (where supported)
+.RE
+.TP
+.BR \-\-maxdepth "=\fINUM\fR"
+Limit directory traversal to NUM levels deep.
+.TP
+.BR \-\-version
+Show version information and exit.
+.TP
+.BR \-\-help
+Show help message and exit.
+.SH FORMAT
+The format string supports the following specifiers:
+.SS File Information
+.TP
+.B %n
+File name
+.TP
+.B %N
+Quoted file name with dereference if symbolic link
+.TP
+.B %s
+Total size in bytes
+.TP
+.B %F
+File type (regular file, directory, etc.)
+.TP
+.B %f
+Raw mode in hexadecimal
+.TP
+.B %a
+Permission bits in octal
+.TP
+.B %A
+Permission bits and file type in human readable form
+.SS Ownership
+.TP
+.B %u
+User ID of owner
+.TP
+.B %U
+User name of owner
+.TP
+.B %g
+Group ID of owner
+.TP
+.B %G
+Group name of owner
+.SS Timestamps
+.TP
+.B %x
+Time of last access, human-readable
+.TP
+.B %X
+Time of last access, seconds since Epoch
+.TP
+.B %y
+Time of last data modification, human-readable
+.TP
+.B %Y
+Time of last data modification, seconds since Epoch
+.TP
+.B %z
+Time of last status change, human-readable
+.TP
+.B %Z
+Time of last status change, seconds since Epoch
+.TP
+.B %w
+Time of file birth, human-readable (- if unknown)
+.TP
+.B %W
+Time of file birth, seconds since Epoch (0 if unknown)
+.SS System Information
+.TP
+.B %d
+Device number in decimal
+.TP
+.B %D
+Device number in hexadecimal
+.TP
+.B %i
+Inode number
+.TP
+.B %h
+Number of hard links
+.TP
+.B %b
+Number of blocks allocated
+.TP
+.B %B
+Size in bytes of each block (usually 512)
+.SH EXAMPLES
+.TP
+Find the most recently modified file in current directory:
+.B findmax -t .
+.TP
+Find the oldest file recursively with timestamp:
+.B findmax -r -t -R -F "%n %y" /home/user
+.TP
+Find the 5 largest files:
+.B findmax -S -R -5 /var/log
+.TP
+Find newest regular file only:
+.B findmax -t -f -R /etc
+.TP
+Find files with detailed information:
+.B findmax -t -F "%n (%s bytes) %U:%G %y" /tmp
+.TP
+Limit search depth to 2 levels:
+.B findmax -t -R --maxdepth=2 /usr/share
+.SH PERFORMANCE
+.B findmax
+is optimized for fast queries using a min-heap data structure to maintain only the top N results, avoiding the need to sort all files when only the maximum values are needed. This provides near O(1) performance for typical use cases.
+.SH EXIT STATUS
+.TP
+.B 0
+Success
+.TP
+.B 1
+General error (invalid arguments, file access errors, etc.)
+.SH AUTHOR
+Written by Lenik <findmax@bodz.net>.
+.SH COPYRIGHT
+Copyright (C) 2026 Lenik.
+This is free software; see the source for copying conditions. There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+.SH SEE ALSO
+.BR find (1),
+.BR ls (1),
+.BR stat (1),
+.BR locate (1)

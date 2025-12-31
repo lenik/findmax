@@ -1,0 +1,13 @@
+findmax (1.0.0-1) unstable; urgency=medium
+
+  * Initial release
+  * Fast file finding utility optimized for O(1) queries
+  * Support for multiple sort criteria (time, size, name)
+  * Recursive directory traversal with depth limits
+  * Custom output formatting with stat-like specifiers
+  * Symbolic link dereference support
+  * Bash completion support
+  * Shared library for integration with other applications
+  * Comprehensive man page and documentation
+
+ -- Lenik <findmax@bodz.net>  Wed, 01 Jan 2026 00:00:00 +0000

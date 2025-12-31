@@ -1,0 +1,37 @@
+# Build artifacts
+*.o
+*.so
+*.so.*
+findmax
+libfindmax.a
+
+# Build directories
+build/
+build-lib/
+.deps/
+
+# Test artifacts
+test_dir/
+
+# Editor files
+*~
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Package build artifacts
+*.deb
+*.dsc
+*.changes
+*.tar.gz
+*.tar.xz
+
+# Meson build files
+meson-build/
+meson-info/
+meson-logs/

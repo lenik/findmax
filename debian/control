@@ -1,0 +1,46 @@
+Source: findmax
+Section: utils
+Priority: optional
+Maintainer: Lenik <findmax@bodz.net>
+Build-Depends: debhelper-compat (= 13), gcc, pkg-config
+Standards-Version: 4.6.0
+Homepage: https://github.com/lenik/findmax
+Rules-Requires-Root: no
+
+Package: findmax
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Fast file finding utility optimized for O(1) queries
+ findmax is a fast file finding utility specifically optimized for O(1) queries
+ to find files with maximum values for specified criteria. It can find files
+ based on modification time, access time, creation time, size, or name, with
+ support for custom output formatting and various filtering options.
+ .
+ Key features:
+  * Fast O(1) performance using min-heap data structures
+  * Multiple sort criteria (time, size, name)
+  * Recursive directory traversal with depth limits
+  * Custom output formatting similar to stat(1)
+  * File type filtering (files only, directories only)
+  * Symbolic link dereference support
+  * Bash completion support
+
+Package: libfindmax-dev
+Architecture: any
+Depends: ${misc:Depends}, libfindmax1 (= ${binary:Version})
+Description: Development files for libfindmax
+ This package contains the header files and development libraries for
+ libfindmax, the shared library providing fast file finding functionality.
+ .
+ Install this package if you want to develop applications that use the
+ findmax library.
+
+Package: libfindmax1
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Shared library for fast file finding
+ This package contains the shared library for findmax, providing fast
+ file finding functionality optimized for O(1) queries.
+ .
+ This library can be used by applications that need to find files with
+ maximum values for various criteria like time, size, or name.

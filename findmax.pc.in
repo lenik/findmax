@@ -1,0 +1,10 @@
+prefix=@prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: findmax
+Description: Fast file finding utility optimized for O(1) queries
+Version: @VERSION@
+URL: https://github.com/lenik/findmax
+Libs: -L${libdir} -lfindmax
+Cflags: -I${includedir}
