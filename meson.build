@@ -30,6 +30,7 @@ main_sources = [
   'main.c',
   'file_ops.c',
   'format.c',
+  'heap.c',
 ]
 
 lib_sources = [

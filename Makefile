@@ -139,9 +139,7 @@ check: test integration-test
 # Run benchmark
 benchmark: $(TARGET)
 	@echo "Running benchmark..."
-	./benchmark.sh -v --csv --markdown --pdf \
-	--output benchmark_report \
-	/usr/* /home/github/*/
+	./benchmark.sh -v --csv --markdown --latex --pdf -n 1 -n 10 -n 1000 /usr/share /usr/src /home/github/*/
 
 # Debug build
 debug: CFLAGS += -g -DDEBUG

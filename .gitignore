@@ -4,6 +4,7 @@
 *.so.*
 findmax
 libfindmax.a
+test_findmax
 *.exe
 
 # Build directories

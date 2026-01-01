@@ -30,6 +30,31 @@ int main(int argc, char *argv[]) {
         allocated_paths = 1;
     }
     
+    // Optimization: if num_files == 1, use direct comparison instead of heap
+    if (opts.num_files == 1) {
+        file_entry_t best = {0};
+        best.path[0] = '\0';
+        
+        // Traverse all specified paths using direct comparison
+        for (int i = 0; i < path_count; i++) {
+            if (traverse_directory_single(paths[i], &opts, &best, 0) != 0) {
+                if (!opts.quiet) {
+                    fprintf(stderr, "findmax: error processing '%s'\n", paths[i]);
+                }
+            }
+        }
+        
+        // Print result if found
+        if (best.path[0] != '\0') {
+            print_file_entry(&best, &opts);
+        }
+        
+        if (allocated_paths) {
+            free(paths);
+        }
+        return 0;
+    }
+    
     // Use heap-based optimization: maintain only top N files during traversal
     // This avoids collecting all files and sorting them, which is much faster for large directories
     min_heap_t *heap = create_min_heap(opts.num_files, &opts);

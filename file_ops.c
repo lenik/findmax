@@ -226,3 +226,134 @@ void sort_files(file_list_t *files, const options_t *opts) {
     g_sort_opts = opts;
     qsort(files->entries, files->count, sizeof(file_entry_t), file_compare_wrapper);
 }
+
+// Compare two file entries directly (for num_files == 1 optimization)
+int compare_file_entries(const file_entry_t *a, const file_entry_t *b, const options_t *opts) {
+    switch (opts->sort_type) {
+        case SORT_ATIME:
+        case SORT_CTIME:
+        case SORT_MTIME:
+        case SORT_BTIME:
+            {
+                time_t diff = a->sort_time - b->sort_time;
+                if (diff == 0) return 0;
+                int result = (diff > 0) ? 1 : -1;
+                return opts->reverse ? -result : result;
+            }
+        case SORT_SIZE:
+            {
+                off_t diff = a->sort_size - b->sort_size;
+                if (diff == 0) return 0;
+                int result = (diff > 0) ? 1 : -1;
+                return opts->reverse ? -result : result;
+            }
+        case SORT_NAME:
+            {
+                const char *name_a = strrchr(a->path, '/');
+                const char *name_b = strrchr(b->path, '/');
+                name_a = name_a ? name_a + 1 : a->path;
+                name_b = name_b ? name_b + 1 : b->path;
+                int result = strcoll(name_a, name_b);
+                return opts->reverse ? -result : result;
+            }
+        default:
+            return 0;
+    }
+}
+
+// Optimized traversal for num_files == 1: use direct comparison instead of heap
+int traverse_directory_single(const char *path, const options_t *opts, file_entry_t *best, int current_depth) {
+    struct stat st;
+    
+    // Check depth limit
+    if (opts->max_depth >= 0 && current_depth > opts->max_depth) {
+        return 0;
+    }
+    
+    // Get file/directory stats
+    int stat_result;
+    if (opts->dereference) {
+        stat_result = stat(path, &st);
+    } else {
+        stat_result = lstat(path, &st);
+    }
+    
+    if (stat_result != 0) {
+        if (!opts->quiet) {
+            perror(path);
+        }
+        return -1;
+    }
+    
+    // Add current file/directory if it matches filter
+    if (should_include_file(&st, opts)) {
+        file_entry_t entry;
+        strncpy(entry.path, path, MAX_PATH_LEN - 1);
+        entry.path[MAX_PATH_LEN - 1] = '\0';
+        entry.st = st;
+        
+        // Set sort criteria
+        switch (opts->sort_type) {
+            case SORT_ATIME:
+                entry.sort_time = st.st_atime;
+                break;
+            case SORT_CTIME:
+                entry.sort_time = st.st_ctime;
+                break;
+            case SORT_MTIME:
+                entry.sort_time = st.st_mtime;
+                break;
+            case SORT_BTIME:
+#ifdef __APPLE__
+                entry.sort_time = st.st_birthtime;
+#else
+                entry.sort_time = st.st_ctime;
+#endif
+                break;
+            case SORT_SIZE:
+                entry.sort_size = st.st_size;
+                break;
+            case SORT_NAME:
+                break;
+        }
+        
+        // Compare directly: if no best yet, or this is better, update best
+        if (best->path[0] == '\0' || compare_file_entries(&entry, best, opts) > 0) {
+            *best = entry;
+        }
+    }
+    
+    // Recursive traversal for directories
+    if (S_ISDIR(st.st_mode) && opts->recursive) {
+        DIR *dir = opendir(path);
+        if (!dir) {
+            if (!opts->quiet) {
+                perror(path);
+            }
+            return -1;
+        }
+        
+        struct dirent *entry;
+        while ((entry = readdir(dir)) != NULL) {
+            // Skip . and ..
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
+                continue;
+            }
+            
+            char full_path[MAX_PATH_LEN];
+            int ret = snprintf(full_path, sizeof(full_path), "%s/%s", path, entry->d_name);
+            if (ret < 0 || (size_t)ret >= sizeof(full_path)) {
+                if (!opts->quiet) {
+                    fprintf(stderr, "findmax: path too long: %s/%s\n", path, entry->d_name);
+                }
+                continue;
+            }
+            
+            traverse_directory_single(full_path, opts, best, current_depth + 1);
+        }
+        
+        closedir(dir);
+    }
+    
+    return 0;
+}
