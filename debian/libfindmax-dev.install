@@ -1,4 +1,2 @@
-usr/lib/libfindmax.so
-usr/lib/libfindmax.a
+usr/lib/*/libfindmax.so
 usr/include/findmax.h
-usr/lib/pkgconfig/*.pc

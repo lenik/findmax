@@ -13,7 +13,7 @@ LIB_OBJECTS = $(LIB_SOURCES:.c=.o)
 TEST_OBJECTS = $(TEST_SOURCES:.c=.o)
 
 # Installation directories
-PREFIX ?= /usr/local
+PREFIX ?= /usr
 DESTDIR ?=
 BINDIR = $(PREFIX)/bin
 # Architecture-dependent library directory

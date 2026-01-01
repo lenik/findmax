@@ -2,7 +2,7 @@ Source: findmax
 Section: utils
 Priority: optional
 Maintainer: Lenik <findmax@bodz.net>
-Build-Depends: debhelper-compat (= 13), gcc, pkg-config
+Build-Depends: debhelper-compat (= 13), gcc, make, pkgconf, bash-completion
 Standards-Version: 4.6.0
 Homepage: https://github.com/lenik/findmax
 Rules-Requires-Root: no

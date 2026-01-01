@@ -4,27 +4,18 @@
 	dh $@ --with bash-completion
 
 override_dh_auto_configure:
-	dh_auto_configure -- \
-		-Dbuildtype=release \
-		-Dwarning_level=2
+	# No configuration needed for Makefile
 
 override_dh_auto_build:
-	dh_auto_build
-	dh_auto_build --builddirectory=build-lib --sourcedir=. -- \
-		-Ddefault_library=shared
+	$(MAKE) PREFIX=/usr
 
 override_dh_auto_install:
-	dh_auto_install
-	dh_auto_install --builddirectory=build-lib --sourcedir=. --destdir=debian/tmp
+	$(MAKE) install PREFIX=/usr DESTDIR=$(CURDIR)/debian/tmp
 
 override_dh_install:
-	dh_install --list-missing
-	# Install library files
-	dh_install -plibfindmax1 usr/lib/libfindmax.so.*
-	dh_install -plibfindmax-dev usr/lib/libfindmax.so usr/lib/libfindmax.a usr/include usr/lib/pkgconfig
-	# Install main binary and documentation
-	dh_install -pfindmax usr/bin usr/share/man usr/share/bash-completion
+	# Install files using install files (which handle multiarch paths with wildcards)
+	dh_install
 
 override_dh_clean:
+	$(MAKE) clean
 	dh_clean
-	rm -rf build-lib

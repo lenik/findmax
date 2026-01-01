@@ -1,4 +1,4 @@
-findmax (1.0.0-1) unstable; urgency=medium
+findmax (1.0.0) unstable; urgency=medium
 
   * Initial release
   * Fast file finding utility optimized for O(1) queries
@@ -10,4 +10,4 @@ findmax (1.0.0-1) unstable; urgency=medium
   * Shared library for integration with other applications
   * Comprehensive man page and documentation
 
- -- Lenik <findmax@bodz.net>  Wed, 01 Jan 2026 00:00:00 +0000
+ -- Lenik (谢继雷) <lenik@bodz.net>  Thu, 01 Jan 2026 00:00:00 +0000

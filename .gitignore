@@ -39,6 +39,14 @@ desktop.ini
 *.rpm
 *.zip
 
+# Debian build artifacts
+debian/tmp/
+debian/*/
+debian/*.debhelper.log
+debian/*.substvars
+debian/debhelper-build-stamp
+debian/files
+
 # Meson build files
 meson-build/
 meson-info/
