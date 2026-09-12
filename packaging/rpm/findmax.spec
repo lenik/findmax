@@ -22,6 +22,7 @@ BuildRequires:  meson
 BuildRequires:  ninja-build
 BuildRequires:  asciidoctor
 BuildRequires:  libbas-c-dev
+BuildRequires:  gettext
 
 %description
 findmax is a fast file finding utility specifically optimized for O(1) queries
@@ -62,6 +63,8 @@ meson install -C build --destdir=%{buildroot}
 %{_includedir}/findmax.h
 %{_datadir}/bash-completion/completions/findmax
 %{_mandir}/man1/findmax.1*
+%{_mandir}/*/man1/findmax.1*
+%{_datadir}/locale/*/LC_MESSAGES/findmax.mo
 %{_datadir}/doc/%{name}/
 
 %changelog

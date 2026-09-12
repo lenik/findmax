@@ -9,7 +9,7 @@ v{project-version}, {project-year}
 
 == NAME
 
-findmax - fast file finding utility optimized for maximum value queries
+findmax - 最大値クエリ向けに最適化された高速ファイル検索ユーティリティ
 
 == SYNOPSIS
 
@@ -17,55 +17,55 @@ findmax - fast file finding utility optimized for maximum value queries
 
 == DESCRIPTION
 
-*findmax* is a fast file finding utility specifically optimized for O(1) queries to find files with maximum values for specified criteria. It can find files based on modification time, access time, creation time, size, or name, with support for custom output formatting and various filtering options.
+*findmax* は指定条件の最大値を持つファイルを探すための高速ユーティリティで、O(1) クエリ向けに最適化されています。更新/アクセス/作成時刻、サイズ、名前で検索でき、出力形式やフィルタにも対応します。
 
 == OPTIONS
 
 *-R*, *--recursive*::
-  Recursively search into directories.
+  ディレクトリを再帰的に検索します。
 *-r*, *--reverse*::
-  Sort in reverse order (oldest/smallest first).
+  逆順に並べます（最古/最小を先に）。
 *-u*::
-  Sort by access time (atime).
+  アクセス時刻 (atime) で並べます。
 *-c*::
-  Sort by metadata change time (ctime).
+  メタデータ変更時刻 (ctime) で並べます。
 *-t*::
-  Sort by modification time (mtime). This is the default.
+  更新時刻 (mtime) で並べます。これが既定です。
 *-S*::
-  Sort by file size.
+  ファイルサイズで並べます。
 *-n*, *--name*::
-  Sort by file name using current locale settings.
+  現在のロケール設定でファイル名順に並べます。
 *-f*, *--file-only*::
-  Show only regular files, exclude directories and special files.
+  通常ファイルのみ表示します。
 *-d*, *--dir-only*::
-  Show only directories, exclude regular files.
+  ディレクトリのみ表示します。
 *-L*, *--dereference*::
-  Follow symbolic links (use stat() instead of lstat()).
+  シンボリックリンクをたどります (lstat() の代わりに stat())。
 *-F*, *--format* _FMT_::
-  Use custom output format string. See FORMAT section for details.
+  カスタム出力形式を使います。詳細は FORMAT 節を参照。
 *-_NUM_*::
-  Show top NUM files instead of just 1 (default).
+  既定の 1 件ではなく上位 NUM 件を表示します。
 *-v*, *--verbose*::
-  Repeat for more verbose logging.
+  繰り返すとより詳細なログになります。
 *-q*, *--quiet*::
-  Show fewer logging messages and suppress non-fatal errors.
+  ログを減らし、致命的でないエラーを抑制します。
 **--time**=__WORD__::
-  Select which timestamp to use for sorting:
+  並べ替えに使うタイムスタンプを選びます:
   +
   *atime*, *access*, *use*;;
-    Access time
+    アクセス時刻
   *ctime*, *status*;;
-    Metadata change time
+    メタデータ変更時刻
   *mtime*, *modification*;;
-    Modification time (default)
+    更新時刻（既定）
   *birth*, *creation*;;
-    Birth/creation time (where supported)
+    作成時刻（対応時）
 **--maxdepth**=__NUM__::
-  Limit directory traversal to NUM levels deep.
+  ディレクトリ探索の深さを NUM に制限します。
 *-h*, *--help*::
-  Display this help and exit.
+  このヘルプを表示して終了します。
 *--version*::
-  Output version information and exit.
+  バージョン情報を表示して終了します。
 
 == FORMAT
 
@@ -150,22 +150,22 @@ Limit search depth to 2 levels:::
 
 == PERFORMANCE
 
-*findmax* is optimized for fast queries using a min-heap data structure to maintain only the top N results, avoiding the need to sort all files when only the maximum values are needed. This provides near O(1) performance for typical use cases.
+*findmax* は最小ヒープで上位 N 件だけを保持し、最大値だけが必要なときに全ファイルのソートを避けます。典型的な用途ではほぼ O(1) の性能です。
 
 == EXIT STATUS
 
 *0*::
-  Success
+  成功
 *1*::
-  General error (invalid arguments, file access errors, etc.)
+  一般エラー（無効な引数、ファイルアクセスエラーなど）
 
 == AUTHOR
 
-Written by Lenik <findmax@bodz.net>.
+Lenik <findmax@bodz.net> によって書かれました。
 
 == COPYRIGHT
 
-Copyright (C) 2026 Lenik. This is free software; see the source for copying conditions. There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+Copyright (C) 2026 Lenik。これはフリーソフトウェアです。複製条件はソースを参照してください。保証はありません。
 
 == SEE ALSO
 

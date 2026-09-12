@@ -9,7 +9,7 @@ v{project-version}, {project-year}
 
 == NAME
 
-findmax - fast file finding utility optimized for maximum value queries
+findmax - 최댓값 질의에 최적화된 빠른 파일 찾기 유틸리티
 
 == SYNOPSIS
 
@@ -17,55 +17,55 @@ findmax - fast file finding utility optimized for maximum value queries
 
 == DESCRIPTION
 
-*findmax* is a fast file finding utility specifically optimized for O(1) queries to find files with maximum values for specified criteria. It can find files based on modification time, access time, creation time, size, or name, with support for custom output formatting and various filtering options.
+*findmax*는 지정 조건의 최댓값 파일을 찾기 위한 빠른 유틸리티로, O(1) 질의에 최적화되어 있습니다. 수정/접근/생성 시간, 크기, 이름으로 찾을 수 있으며 출력 형식과 필터를 지원합니다.
 
 == OPTIONS
 
 *-R*, *--recursive*::
-  Recursively search into directories.
+  디렉터리를 재귀적으로 검색합니다.
 *-r*, *--reverse*::
-  Sort in reverse order (oldest/smallest first).
+  역순으로 정렬합니다(가장 오래됨/작음 우선).
 *-u*::
-  Sort by access time (atime).
+  접근 시간(atime)으로 정렬합니다.
 *-c*::
-  Sort by metadata change time (ctime).
+  메타데이터 변경 시간(ctime)으로 정렬합니다.
 *-t*::
-  Sort by modification time (mtime). This is the default.
+  수정 시간(mtime)으로 정렬합니다. 이것이 기본값입니다.
 *-S*::
-  Sort by file size.
+  파일 크기로 정렬합니다.
 *-n*, *--name*::
-  Sort by file name using current locale settings.
+  현재 로케일 설정으로 파일 이름순 정렬합니다.
 *-f*, *--file-only*::
-  Show only regular files, exclude directories and special files.
+  일반 파일만 표시합니다.
 *-d*, *--dir-only*::
-  Show only directories, exclude regular files.
+  디렉터리만 표시합니다.
 *-L*, *--dereference*::
-  Follow symbolic links (use stat() instead of lstat()).
+  심볼릭 링크를 따릅니다(lstat() 대신 stat()).
 *-F*, *--format* _FMT_::
-  Use custom output format string. See FORMAT section for details.
+  사용자 지정 출력 형식을 사용합니다. FORMAT 절을 참고하세요.
 *-_NUM_*::
-  Show top NUM files instead of just 1 (default).
+  기본 1개가 아니라 상위 NUM개를 표시합니다.
 *-v*, *--verbose*::
-  Repeat for more verbose logging.
+  반복하면 로그가 더 상세해집니다.
 *-q*, *--quiet*::
-  Show fewer logging messages and suppress non-fatal errors.
+  로그를 줄이고 치명적이지 않은 오류를 숨깁니다.
 **--time**=__WORD__::
-  Select which timestamp to use for sorting:
+  정렬에 사용할 타임스탬프를 선택합니다:
   +
   *atime*, *access*, *use*;;
-    Access time
+    접근 시간
   *ctime*, *status*;;
-    Metadata change time
+    메타데이터 변경 시간
   *mtime*, *modification*;;
-    Modification time (default)
+    수정 시간(기본)
   *birth*, *creation*;;
-    Birth/creation time (where supported)
+    생성 시간(지원 시)
 **--maxdepth**=__NUM__::
-  Limit directory traversal to NUM levels deep.
+  디렉터리 탐색 깊이를 NUM으로 제한합니다.
 *-h*, *--help*::
-  Display this help and exit.
+  이 도움말을 표시하고 종료합니다.
 *--version*::
-  Output version information and exit.
+  버전 정보를 표시하고 종료합니다.
 
 == FORMAT
 
@@ -150,22 +150,22 @@ Limit search depth to 2 levels:::
 
 == PERFORMANCE
 
-*findmax* is optimized for fast queries using a min-heap data structure to maintain only the top N results, avoiding the need to sort all files when only the maximum values are needed. This provides near O(1) performance for typical use cases.
+*findmax*는 최소 힙으로 상위 N개만 유지하여 최댓값만 필요할 때 전체 정렬을 피합니다. 일반적인 사용에서 거의 O(1) 성능을 제공합니다.
 
 == EXIT STATUS
 
 *0*::
-  Success
+  성공
 *1*::
-  General error (invalid arguments, file access errors, etc.)
+  일반 오류(잘못된 인수, 파일 접근 오류 등)
 
 == AUTHOR
 
-Written by Lenik <findmax@bodz.net>.
+Lenik <findmax@bodz.net>이(가) 작성했습니다.
 
 == COPYRIGHT
 
-Copyright (C) 2026 Lenik. This is free software; see the source for copying conditions. There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+Copyright (C) 2026 Lenik. 이것은 자유 소프트웨어입니다. 복사 조건은 소스를 참고하세요. 보증은 없습니다.
 
 == SEE ALSO
 

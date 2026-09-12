@@ -1,0 +1,156 @@
+# Japanese translations for findmax package.
+# Copyright (C) 2026 THE findmax'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the findmax package.
+# Automatically generated, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: findmax 1.1.0\n"
+"Report-Msgid-Bugs-To: findmax@bodz.net\n"
+"POT-Creation-Date: 2026-09-12 09:03+0800\n"
+"PO-Revision-Date: 2026-09-12 09:03+0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/main.c:49 src/main.c:76 src/heap.c:280
+#, c-format
+msgid "findmax: error processing '%s'\n"
+msgstr "findmax: '%s' の処理中にエラー\n"
+
+#: src/main.c:66 src/main.c:83 src/main.c:96 src/file_ops.c:120 src/heap.c:272
+#: src/heap.c:288 src/heap.c:296
+#, c-format
+msgid "findmax: memory allocation failed\n"
+msgstr "findmax: メモリ割り当てに失敗しました\n"
+
+#: src/main.c:118
+msgid ""
+"Usage: findmax [OPTION]... [FILE]...\n"
+"Find files with maximum values for specified criteria.\n"
+"Default behavior: show largest/newest files first (max-first).\n"
+msgstr ""
+"使い方: findmax [オプション]... [ファイル]...\n"
+"指定した条件で最大値を持つファイルを検索します。\n"
+"既定の動作: 最大/最新のファイルを先に表示します（最大優先）。\n"
+
+#: src/main.c:123
+msgid "Options:\n"
+msgstr "オプション:\n"
+
+#: src/main.c:125
+msgid "recursive into directories\n"
+msgstr "ディレクトリを再帰的に探索する\n"
+
+#: src/main.c:127
+msgid "normal order (smallest/oldest first)\n"
+msgstr "通常順（最小/最古を先に）\n"
+
+#: src/main.c:129
+msgid "access time\n"
+msgstr "アクセス時刻\n"
+
+#: src/main.c:131
+msgid "metadata change time\n"
+msgstr "メタデータ変更時刻\n"
+
+#: src/main.c:133
+msgid "file time (modification time)\n"
+msgstr "ファイル時刻（更新時刻）\n"
+
+#: src/main.c:135
+msgid "select timestamp (atime/access/use, ctime/status,\n"
+msgstr "タイムスタンプを選択 (atime/access/use, ctime/status,\n"
+
+#: src/main.c:137
+msgid "mtime/modification, birth/creation)\n"
+msgstr "mtime/modification、birth/creation)\n"
+
+#: src/main.c:139
+msgid "file size\n"
+msgstr "ファイルサイズ\n"
+
+#: src/main.c:141
+msgid "file name, order in current locale setting\n"
+msgstr "ファイル名、現在のロケール順\n"
+
+#: src/main.c:143
+msgid "print plain file only\n"
+msgstr "通常ファイルのみ表示\n"
+
+#: src/main.c:145
+msgid "print directory only\n"
+msgstr "ディレクトリのみ表示\n"
+
+#: src/main.c:147
+msgid "output format\n"
+msgstr "出力形式\n"
+
+#: src/main.c:149
+msgid "show top NUM files, default 1\n"
+msgstr "上位 NUM 件を表示、既定は 1\n"
+
+#: src/main.c:151
+msgid "repeat for more verbose loggings\n"
+msgstr "繰り返すとより詳細なログ\n"
+
+#: src/main.c:153
+msgid "show less logging messages\n"
+msgstr "ログメッセージを減らす\n"
+
+#: src/main.c:155
+msgid "follow symbolic links\n"
+msgstr "シンボリックリンクをたどる\n"
+
+#: src/main.c:157
+msgid "limit directory traversal depth\n"
+msgstr "ディレクトリ探索の深さを制限\n"
+
+#: src/main.c:159
+msgid "display this help and exit\n"
+msgstr "このヘルプを表示して終了\n"
+
+#: src/main.c:161
+msgid "output version information and exit\n"
+msgstr "バージョン情報を表示して終了\n"
+
+#: src/main.c:163
+#, c-format
+msgid "Report bugs to: <%s>\n"
+msgstr "バグ報告先: <%s>\n"
+
+#: src/main.c:168
+#, c-format
+msgid "Copyright (C) %d %s\n"
+msgstr "Copyright (C) %d %s\n"
+
+#: src/main.c:169
+msgid "License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
+msgstr "ライセンス AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
+
+#: src/main.c:171
+msgid "This is free software: you are free to change and redistribute it.\n"
+msgstr "これはフリーソフトウェアです。変更および再配布が自由です。\n"
+
+#: src/main.c:172
+msgid "There is NO WARRANTY, to the extent permitted by law.\n"
+msgstr "法律で認められる範囲で、保証はありません。\n"
+
+#: src/main.c:268
+#, c-format
+msgid "findmax: invalid time type '%s'\n"
+msgstr "findmax: 無効な時刻種別 '%s'\n"
+
+#: src/main.c:277
+#, c-format
+msgid "findmax: invalid maxdepth '%s'\n"
+msgstr "findmax: 無効な maxdepth '%s'\n"
+
+#: src/file_ops.c:148 src/file_ops.c:348 src/heap.c:231
+#, c-format
+msgid "findmax: path too long: %s/%s\n"
+msgstr "findmax: パスが長すぎます: %s/%s\n"

@@ -1,4 +1,5 @@
 #include "findmax.h"
+#include <bas/locale/i18n.h>
 
 file_list_t *create_file_list(void) {
     file_list_t *files = malloc(sizeof(file_list_t));
@@ -116,7 +117,7 @@ int traverse_directory_depth(const char *path, const options_t *opts, file_list_
     if (should_include_file(&st, opts)) {
         if (add_file_entry(files, path, &st, opts) != 0) {
             if (!opts->quiet) {
-                fprintf(stderr, "findmax: memory allocation failed\n");
+                fprintf(stderr, _("findmax: memory allocation failed\n"));
             }
             return -1;
         }
@@ -144,7 +145,7 @@ int traverse_directory_depth(const char *path, const options_t *opts, file_list_
             int ret = snprintf(full_path, sizeof(full_path), "%s/%s", path, entry->d_name);
             if (ret < 0 || (size_t)ret >= sizeof(full_path)) {
                 if (!opts->quiet) {
-                    fprintf(stderr, "findmax: path too long: %s/%s\n", path, entry->d_name);
+                    fprintf(stderr, _("findmax: path too long: %s/%s\n"), path, entry->d_name);
                 }
                 continue;
             }
@@ -344,7 +345,7 @@ int traverse_directory_single(const char *path, const options_t *opts, file_entr
             int ret = snprintf(full_path, sizeof(full_path), "%s/%s", path, entry->d_name);
             if (ret < 0 || (size_t)ret >= sizeof(full_path)) {
                 if (!opts->quiet) {
-                    fprintf(stderr, "findmax: path too long: %s/%s\n", path, entry->d_name);
+                    fprintf(stderr, _("findmax: path too long: %s/%s\n"), path, entry->d_name);
                 }
                 continue;
             }

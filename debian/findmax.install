@@ -1,4 +1,6 @@
 usr/bin/findmax
 usr/share/man/man1/findmax.1
+usr/share/man/*/man1/findmax.1
 usr/share/bash-completion/completions/findmax
 usr/share/doc/findmax/*
+usr/share/locale/*/LC_MESSAGES/findmax.mo

@@ -1,0 +1,4 @@
+src/main.c
+src/file_ops.c
+src/heap.c
+src/logger.c

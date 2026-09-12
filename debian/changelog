@@ -1,3 +1,10 @@
+findmax (1.1.0) unstable; urgency=medium
+
+  * Add -h/--help short option and wire -v/--verbose, -q/--quiet to bas logging.
+  * Add gettext i18n (L1 locales) and translated man pages under docs/<locale>/.
+
+ -- Lenik (谢继雷) <lenik@bodz.net>  Sat, 12 Sep 2026 09:05:00 +0800
+
 findmax (1.0.1) unstable; urgency=medium
 
   * Move sources under src/ and align packaging with zephyr Meson layout.

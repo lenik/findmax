@@ -9,7 +9,7 @@ v{project-version}, {project-year}
 
 == NAME
 
-findmax - fast file finding utility optimized for maximum value queries
+findmax - schnelles Dateisuchwerkzeug für Maximalwert-Abfragen
 
 == SYNOPSIS
 
@@ -17,55 +17,55 @@ findmax - fast file finding utility optimized for maximum value queries
 
 == DESCRIPTION
 
-*findmax* is a fast file finding utility specifically optimized for O(1) queries to find files with maximum values for specified criteria. It can find files based on modification time, access time, creation time, size, or name, with support for custom output formatting and various filtering options.
+*findmax* ist ein schnelles Dateisuchwerkzeug, optimiert für O(1)-Abfragen nach Maximalwerten. Sortierung nach Änderungs-, Zugriffs- oder Erstellungszeit, Größe oder Name, mit Formatierung und Filtern.
 
 == OPTIONS
 
 *-R*, *--recursive*::
-  Recursively search into directories.
+  Rekursiv in Verzeichnisse suchen.
 *-r*, *--reverse*::
-  Sort in reverse order (oldest/smallest first).
+  In umgekehrter Reihenfolge sortieren (älteste/kleinste zuerst).
 *-u*::
-  Sort by access time (atime).
+  Nach Zugriffszeit (atime) sortieren.
 *-c*::
-  Sort by metadata change time (ctime).
+  Nach Metadaten-Änderungszeit (ctime) sortieren.
 *-t*::
-  Sort by modification time (mtime). This is the default.
+  Nach Änderungszeit (mtime) sortieren. Dies ist die Voreinstellung.
 *-S*::
-  Sort by file size.
+  Nach Dateigröße sortieren.
 *-n*, *--name*::
-  Sort by file name using current locale settings.
+  Nach Dateiname gemäß aktueller Locale sortieren.
 *-f*, *--file-only*::
-  Show only regular files, exclude directories and special files.
+  Nur reguläre Dateien anzeigen.
 *-d*, *--dir-only*::
-  Show only directories, exclude regular files.
+  Nur Verzeichnisse anzeigen.
 *-L*, *--dereference*::
-  Follow symbolic links (use stat() instead of lstat()).
+  Symbolischen Links folgen (stat() statt lstat()).
 *-F*, *--format* _FMT_::
-  Use custom output format string. See FORMAT section for details.
+  Benutzerdefiniertes Ausgabeformat verwenden. Siehe Abschnitt FORMAT.
 *-_NUM_*::
-  Show top NUM files instead of just 1 (default).
+  Die ersten NUM Dateien anzeigen statt nur 1 (Standard).
 *-v*, *--verbose*::
-  Repeat for more verbose logging.
+  Wiederholen für ausführlichere Protokolle.
 *-q*, *--quiet*::
-  Show fewer logging messages and suppress non-fatal errors.
+  Weniger Meldungen anzeigen und nicht fatale Fehler unterdrücken.
 **--time**=__WORD__::
-  Select which timestamp to use for sorting:
+  Zeitstempel für die Sortierung wählen:
   +
   *atime*, *access*, *use*;;
-    Access time
+    Zugriffszeit
   *ctime*, *status*;;
-    Metadata change time
+    Metadaten-Änderungszeit
   *mtime*, *modification*;;
-    Modification time (default)
+    Änderungszeit (Standard)
   *birth*, *creation*;;
-    Birth/creation time (where supported)
+    Erstellungszeit (falls unterstützt)
 **--maxdepth**=__NUM__::
-  Limit directory traversal to NUM levels deep.
+  Verzeichnistiefe auf NUM Ebenen begrenzen.
 *-h*, *--help*::
-  Display this help and exit.
+  Diese Hilfe anzeigen und beenden.
 *--version*::
-  Output version information and exit.
+  Versionsinformationen anzeigen und beenden.
 
 == FORMAT
 
@@ -150,22 +150,22 @@ Limit search depth to 2 levels:::
 
 == PERFORMANCE
 
-*findmax* is optimized for fast queries using a min-heap data structure to maintain only the top N results, avoiding the need to sort all files when only the maximum values are needed. This provides near O(1) performance for typical use cases.
+*findmax* verwendet einen Min-Heap, um nur die Top-N-Ergebnisse zu halten, ohne alle Dateien zu sortieren. Typische Fälle erreichen nahezu O(1).
 
 == EXIT STATUS
 
 *0*::
-  Success
+  Erfolg
 *1*::
-  General error (invalid arguments, file access errors, etc.)
+  Allgemeiner Fehler (ungültige Argumente, Zugriffsfehler usw.)
 
 == AUTHOR
 
-Written by Lenik <findmax@bodz.net>.
+Geschrieben von Lenik <findmax@bodz.net>.
 
 == COPYRIGHT
 
-Copyright (C) 2026 Lenik. This is free software; see the source for copying conditions. There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+Copyright (C) 2026 Lenik. Dies ist freie Software; siehe den Quelltext für Kopierbedingungen. Es gibt KEINE Gewährleistung.
 
 == SEE ALSO
 

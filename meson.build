@@ -70,6 +70,8 @@ add_project_arguments('-D_GNU_SOURCE', '-fPIC', language: 'c')
 
 inc = include_directories('src')
 
+subdir('po')
+
 main_sources = [
   'src/main.c',
   'src/file_ops.c',
@@ -147,10 +149,10 @@ install_data(
   install_dir: pkgdocdir,
 )
 
-puffs = [
+man_puffs = [
   'findmax',
 ]
-foreach puff : puffs
+foreach puff : man_puffs
   custom_target(
     puff + '-man',
     input: 'docs' / (puff + '.adoc'),
@@ -169,6 +171,49 @@ foreach puff : puffs
     install: true,
     install_dir: mandir / 'man1',
   )
+endforeach
+
+man_i18n_langs = [
+  'ar',
+  'de',
+  'es_MX',
+  'fr',
+  'it',
+  'ja',
+  'ko',
+  'zh_CN',
+]
+foreach lang : man_i18n_langs
+  foreach puff : man_puffs
+    man_in = 'docs' / lang / (puff + '.adoc')
+    if not fs.exists(man_in)
+      continue
+    endif
+    man_built = custom_target(
+      puff + '-man-' + lang,
+      input: man_in,
+      output: puff + '-' + lang + '.1',
+      command: [
+        asciidoctor,
+        '-b', 'manpage',
+        '-a', 'project-version=' + meson.project_version(),
+        '-a', 'project-year=@0@'.format(project_year),
+        '-a', 'project-author=' + project_author,
+        '-a', 'project-email=' + project_email,
+        '-o', '@OUTPUT@',
+        '@INPUT@',
+      ],
+      build_by_default: true,
+    )
+    meson.add_install_script(
+      'sh',
+      '-c',
+      'install -D -m644 "$1" "${DESTDIR:-}$2"',
+      '--',
+      man_built,
+      mandir / lang / 'man1' / (puff + '.1'),
+    )
+  endforeach
 endforeach
 
 run_target(

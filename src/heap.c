@@ -1,4 +1,5 @@
 #include "findmax.h"
+#include <bas/locale/i18n.h>
 #include <stdbool.h>
 
 struct min_heap {
@@ -227,7 +228,7 @@ int traverse_directory_optimized(const char *path, const options_t *opts, min_he
             int ret = snprintf(full_path, sizeof(full_path), "%s/%s", path, entry->d_name);
             if (ret < 0 || (size_t)ret >= sizeof(full_path)) {
                 if (!opts->quiet) {
-                    fprintf(stderr, "findmax: path too long: %s/%s\n", path, entry->d_name);
+                    fprintf(stderr, _("findmax: path too long: %s/%s\n"), path, entry->d_name);
                 }
                 continue;
             }
@@ -268,7 +269,7 @@ int main_optimized(int argc, char *argv[]) {
     // Create min-heap with capacity equal to num_files for O(1) performance
     min_heap_t *heap = create_min_heap(opts.num_files, &opts);
     if (!heap) {
-        fprintf(stderr, "findmax: memory allocation failed\n");
+        fprintf(stderr, _("findmax: memory allocation failed\n"));
         return 1;
     }
     
@@ -276,7 +277,7 @@ int main_optimized(int argc, char *argv[]) {
     for (int i = 0; i < path_count; i++) {
         if (traverse_directory_optimized(paths[i], &opts, heap, 0) != 0) {
             if (!opts.quiet) {
-                fprintf(stderr, "findmax: error processing '%s'\n", paths[i]);
+                fprintf(stderr, _("findmax: error processing '%s'\n"), paths[i]);
             }
         }
     }
@@ -284,7 +285,7 @@ int main_optimized(int argc, char *argv[]) {
     // Extract results from heap and sort them properly for output
     file_list_t *results = create_file_list();
     if (!results) {
-        fprintf(stderr, "findmax: memory allocation failed\n");
+        fprintf(stderr, _("findmax: memory allocation failed\n"));
         free_min_heap(heap);
         return 1;
     }
@@ -292,7 +293,7 @@ int main_optimized(int argc, char *argv[]) {
     // Copy heap contents to results
     for (size_t i = 0; i < heap->size; i++) {
         if (add_file_entry(results, heap->entries[i].path, &heap->entries[i].st, &opts) != 0) {
-            fprintf(stderr, "findmax: memory allocation failed\n");
+            fprintf(stderr, _("findmax: memory allocation failed\n"));
             break;
         }
     }

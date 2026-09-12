@@ -1,0 +1,156 @@
+# German translations for findmax package.
+# Copyright (C) 2026 THE findmax'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the findmax package.
+# Automatically generated, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: findmax 1.1.0\n"
+"Report-Msgid-Bugs-To: findmax@bodz.net\n"
+"POT-Creation-Date: 2026-09-12 09:03+0800\n"
+"PO-Revision-Date: 2026-09-12 09:03+0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/main.c:49 src/main.c:76 src/heap.c:280
+#, c-format
+msgid "findmax: error processing '%s'\n"
+msgstr "findmax: Fehler bei der Verarbeitung von »%s«\n"
+
+#: src/main.c:66 src/main.c:83 src/main.c:96 src/file_ops.c:120 src/heap.c:272
+#: src/heap.c:288 src/heap.c:296
+#, c-format
+msgid "findmax: memory allocation failed\n"
+msgstr "findmax: Speicherzuweisung fehlgeschlagen\n"
+
+#: src/main.c:118
+msgid ""
+"Usage: findmax [OPTION]... [FILE]...\n"
+"Find files with maximum values for specified criteria.\n"
+"Default behavior: show largest/newest files first (max-first).\n"
+msgstr ""
+"Aufruf: findmax [OPTION]... [DATEI]...\n"
+"Dateien mit Maximalwerten für angegebene Kriterien finden.\n"
+"Standardverhalten: größte/neueste Dateien zuerst anzeigen (Max zuerst).\n"
+
+#: src/main.c:123
+msgid "Options:\n"
+msgstr "Optionen:\n"
+
+#: src/main.c:125
+msgid "recursive into directories\n"
+msgstr "rekursiv in Verzeichnisse gehen\n"
+
+#: src/main.c:127
+msgid "normal order (smallest/oldest first)\n"
+msgstr "normale Reihenfolge (kleinste/älteste zuerst)\n"
+
+#: src/main.c:129
+msgid "access time\n"
+msgstr "Zugriffszeit\n"
+
+#: src/main.c:131
+msgid "metadata change time\n"
+msgstr "Metadaten-Änderungszeit\n"
+
+#: src/main.c:133
+msgid "file time (modification time)\n"
+msgstr "Dateizeit (Änderungszeit)\n"
+
+#: src/main.c:135
+msgid "select timestamp (atime/access/use, ctime/status,\n"
+msgstr "Zeitstempel wählen (atime/access/use, ctime/status,\n"
+
+#: src/main.c:137
+msgid "mtime/modification, birth/creation)\n"
+msgstr "mtime/modification, birth/Erstellung)\n"
+
+#: src/main.c:139
+msgid "file size\n"
+msgstr "Dateigröße\n"
+
+#: src/main.c:141
+msgid "file name, order in current locale setting\n"
+msgstr "Dateiname, Reihenfolge der aktuellen Locale\n"
+
+#: src/main.c:143
+msgid "print plain file only\n"
+msgstr "nur reguläre Dateien ausgeben\n"
+
+#: src/main.c:145
+msgid "print directory only\n"
+msgstr "nur Verzeichnisse ausgeben\n"
+
+#: src/main.c:147
+msgid "output format\n"
+msgstr "Ausgabeformat\n"
+
+#: src/main.c:149
+msgid "show top NUM files, default 1\n"
+msgstr "die ersten NUM Dateien anzeigen, Standard 1\n"
+
+#: src/main.c:151
+msgid "repeat for more verbose loggings\n"
+msgstr "wiederholen für ausführlichere Protokolle\n"
+
+#: src/main.c:153
+msgid "show less logging messages\n"
+msgstr "weniger Protokollmeldungen anzeigen\n"
+
+#: src/main.c:155
+msgid "follow symbolic links\n"
+msgstr "symbolischen Links folgen\n"
+
+#: src/main.c:157
+msgid "limit directory traversal depth\n"
+msgstr "Verzeichnistiefe begrenzen\n"
+
+#: src/main.c:159
+msgid "display this help and exit\n"
+msgstr "diese Hilfe anzeigen und beenden\n"
+
+#: src/main.c:161
+msgid "output version information and exit\n"
+msgstr "Versionsinformationen anzeigen und beenden\n"
+
+#: src/main.c:163
+#, c-format
+msgid "Report bugs to: <%s>\n"
+msgstr "Fehler melden an: <%s>\n"
+
+#: src/main.c:168
+#, c-format
+msgid "Copyright (C) %d %s\n"
+msgstr "Copyright (C) %d %s\n"
+
+#: src/main.c:169
+msgid "License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
+msgstr "Lizenz AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
+
+#: src/main.c:171
+msgid "This is free software: you are free to change and redistribute it.\n"
+msgstr "Dies ist freie Software: Sie dürfen sie ändern und weitergeben.\n"
+
+#: src/main.c:172
+msgid "There is NO WARRANTY, to the extent permitted by law.\n"
+msgstr "Es gibt KEINE GEWÄHRLEISTUNG, soweit gesetzlich zulässig.\n"
+
+#: src/main.c:268
+#, c-format
+msgid "findmax: invalid time type '%s'\n"
+msgstr "findmax: ungültiger Zeittyp »%s«\n"
+
+#: src/main.c:277
+#, c-format
+msgid "findmax: invalid maxdepth '%s'\n"
+msgstr "findmax: ungültiges maxdepth »%s«\n"
+
+#: src/file_ops.c:148 src/file_ops.c:348 src/heap.c:231
+#, c-format
+msgid "findmax: path too long: %s/%s\n"
+msgstr "findmax: Pfad zu lang: %s/%s\n"

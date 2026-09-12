@@ -1,0 +1,156 @@
+# Chinese translations for findmax package
+# findmax �������ļ������ķ���.
+# Copyright (C) 2026 THE findmax'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the findmax package.
+# Automatically generated, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: findmax 1.1.0\n"
+"Report-Msgid-Bugs-To: findmax@bodz.net\n"
+"POT-Creation-Date: 2026-09-12 09:03+0800\n"
+"PO-Revision-Date: 2026-09-12 09:03+0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/main.c:49 src/main.c:76 src/heap.c:280
+#, c-format
+msgid "findmax: error processing '%s'\n"
+msgstr "findmax：处理“%s”时出错\n"
+
+#: src/main.c:66 src/main.c:83 src/main.c:96 src/file_ops.c:120 src/heap.c:272
+#: src/heap.c:288 src/heap.c:296
+#, c-format
+msgid "findmax: memory allocation failed\n"
+msgstr "findmax：内存分配失败\n"
+
+#: src/main.c:118
+msgid ""
+"Usage: findmax [OPTION]... [FILE]...\n"
+"Find files with maximum values for specified criteria.\n"
+"Default behavior: show largest/newest files first (max-first).\n"
+msgstr ""
+"用法：findmax [选项]... [文件]...\n"
+"按指定条件查找具有最大值的文件。\n"
+"默认行为：优先显示最大/最新的文件（最大值优先）。\n"
+
+#: src/main.c:123
+msgid "Options:\n"
+msgstr "选项：\n"
+
+#: src/main.c:125
+msgid "recursive into directories\n"
+msgstr "递归进入目录\n"
+
+#: src/main.c:127
+msgid "normal order (smallest/oldest first)\n"
+msgstr "正常顺序（最小/最旧优先）\n"
+
+#: src/main.c:129
+msgid "access time\n"
+msgstr "访问时间\n"
+
+#: src/main.c:131
+msgid "metadata change time\n"
+msgstr "元数据更改时间\n"
+
+#: src/main.c:133
+msgid "file time (modification time)\n"
+msgstr "文件时间（修改时间）\n"
+
+#: src/main.c:135
+msgid "select timestamp (atime/access/use, ctime/status,\n"
+msgstr "选择时间戳（atime/access/use、ctime/status、\n"
+
+#: src/main.c:137
+msgid "mtime/modification, birth/creation)\n"
+msgstr "mtime/modification、birth/creation）\n"
+
+#: src/main.c:139
+msgid "file size\n"
+msgstr "文件大小\n"
+
+#: src/main.c:141
+msgid "file name, order in current locale setting\n"
+msgstr "文件名，按当前区域设置排序\n"
+
+#: src/main.c:143
+msgid "print plain file only\n"
+msgstr "仅打印普通文件\n"
+
+#: src/main.c:145
+msgid "print directory only\n"
+msgstr "仅打印目录\n"
+
+#: src/main.c:147
+msgid "output format\n"
+msgstr "输出格式\n"
+
+#: src/main.c:149
+msgid "show top NUM files, default 1\n"
+msgstr "显示前 NUM 个文件，默认 1\n"
+
+#: src/main.c:151
+msgid "repeat for more verbose loggings\n"
+msgstr "重复以增加日志详细程度\n"
+
+#: src/main.c:153
+msgid "show less logging messages\n"
+msgstr "显示更少的日志消息\n"
+
+#: src/main.c:155
+msgid "follow symbolic links\n"
+msgstr "跟随符号链接\n"
+
+#: src/main.c:157
+msgid "limit directory traversal depth\n"
+msgstr "限制目录遍历深度\n"
+
+#: src/main.c:159
+msgid "display this help and exit\n"
+msgstr "显示此帮助并退出\n"
+
+#: src/main.c:161
+msgid "output version information and exit\n"
+msgstr "输出版本信息并退出\n"
+
+#: src/main.c:163
+#, c-format
+msgid "Report bugs to: <%s>\n"
+msgstr "报告缺陷至：<%s>\n"
+
+#: src/main.c:168
+#, c-format
+msgid "Copyright (C) %d %s\n"
+msgstr "Copyright (C) %d %s\n"
+
+#: src/main.c:169
+msgid "License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
+msgstr "许可证 AGPL-3.0-or-later：<https://www.gnu.org/licenses/agpl-3.0.html>\n"
+
+#: src/main.c:171
+msgid "This is free software: you are free to change and redistribute it.\n"
+msgstr "这是自由软件：您可以自由修改和再分发。\n"
+
+#: src/main.c:172
+msgid "There is NO WARRANTY, to the extent permitted by law.\n"
+msgstr "在法律允许的范围内，不提供任何担保。\n"
+
+#: src/main.c:268
+#, c-format
+msgid "findmax: invalid time type '%s'\n"
+msgstr "findmax：无效的时间类型“%s”\n"
+
+#: src/main.c:277
+#, c-format
+msgid "findmax: invalid maxdepth '%s'\n"
+msgstr "findmax：无效的 maxdepth“%s”\n"
+
+#: src/file_ops.c:148 src/file_ops.c:348 src/heap.c:231
+#, c-format
+msgid "findmax: path too long: %s/%s\n"
+msgstr "findmax：路径过长：%s/%s\n"

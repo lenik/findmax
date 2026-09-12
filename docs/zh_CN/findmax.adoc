@@ -9,7 +9,7 @@ v{project-version}, {project-year}
 
 == NAME
 
-findmax - fast file finding utility optimized for maximum value queries
+findmax - 面向最大值查询优化的快速文件查找工具
 
 == SYNOPSIS
 
@@ -17,55 +17,55 @@ findmax - fast file finding utility optimized for maximum value queries
 
 == DESCRIPTION
 
-*findmax* is a fast file finding utility specifically optimized for O(1) queries to find files with maximum values for specified criteria. It can find files based on modification time, access time, creation time, size, or name, with support for custom output formatting and various filtering options.
+*findmax* 是面向“按指定条件查找最大值文件”的快速工具，针对 O(1) 查询做了优化。可按修改/访问/创建时间、大小或名称查找，并支持自定义输出格式与过滤。
 
 == OPTIONS
 
 *-R*, *--recursive*::
-  Recursively search into directories.
+  递归搜索目录。
 *-r*, *--reverse*::
-  Sort in reverse order (oldest/smallest first).
+  反向排序（最旧/最小优先）。
 *-u*::
-  Sort by access time (atime).
+  按访问时间（atime）排序。
 *-c*::
-  Sort by metadata change time (ctime).
+  按元数据更改时间（ctime）排序。
 *-t*::
-  Sort by modification time (mtime). This is the default.
+  按修改时间（mtime）排序。这是默认值。
 *-S*::
-  Sort by file size.
+  按文件大小排序。
 *-n*, *--name*::
-  Sort by file name using current locale settings.
+  按当前区域设置的文件名排序。
 *-f*, *--file-only*::
-  Show only regular files, exclude directories and special files.
+  仅显示普通文件。
 *-d*, *--dir-only*::
-  Show only directories, exclude regular files.
+  仅显示目录。
 *-L*, *--dereference*::
-  Follow symbolic links (use stat() instead of lstat()).
+  跟随符号链接（使用 stat() 而非 lstat()）。
 *-F*, *--format* _FMT_::
-  Use custom output format string. See FORMAT section for details.
+  使用自定义输出格式字符串。详见 FORMAT 一节。
 *-_NUM_*::
-  Show top NUM files instead of just 1 (default).
+  显示前 NUM 个文件，而不是默认的 1 个。
 *-v*, *--verbose*::
-  Repeat for more verbose logging.
+  重复以增加日志详细程度。
 *-q*, *--quiet*::
-  Show fewer logging messages and suppress non-fatal errors.
+  显示更少日志并抑制非致命错误。
 **--time**=__WORD__::
-  Select which timestamp to use for sorting:
+  选择用于排序的时间戳：
   +
   *atime*, *access*, *use*;;
-    Access time
+    访问时间
   *ctime*, *status*;;
-    Metadata change time
+    元数据更改时间
   *mtime*, *modification*;;
-    Modification time (default)
+    修改时间（默认）
   *birth*, *creation*;;
-    Birth/creation time (where supported)
+    创建时间（若支持）
 **--maxdepth**=__NUM__::
-  Limit directory traversal to NUM levels deep.
+  将目录遍历深度限制为 NUM 层。
 *-h*, *--help*::
-  Display this help and exit.
+  显示此帮助并退出。
 *--version*::
-  Output version information and exit.
+  输出版本信息并退出。
 
 == FORMAT
 
@@ -150,22 +150,22 @@ Limit search depth to 2 levels:::
 
 == PERFORMANCE
 
-*findmax* is optimized for fast queries using a min-heap data structure to maintain only the top N results, avoiding the need to sort all files when only the maximum values are needed. This provides near O(1) performance for typical use cases.
+*findmax* 使用最小堆只维护前 N 个结果，在只需最大值时无需对全部文件排序，典型场景接近 O(1) 性能。
 
 == EXIT STATUS
 
 *0*::
-  Success
+  成功
 *1*::
-  General error (invalid arguments, file access errors, etc.)
+  一般错误（无效参数、文件访问错误等）
 
 == AUTHOR
 
-Written by Lenik <findmax@bodz.net>.
+由 Lenik <findmax@bodz.net> 编写。
 
 == COPYRIGHT
 
-Copyright (C) 2026 Lenik. This is free software; see the source for copying conditions. There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+Copyright (C) 2026 Lenik。这是自由软件；复制条件见源代码。不提供任何担保。
 
 == SEE ALSO
 

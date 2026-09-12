@@ -1,0 +1,155 @@
+# Arabic translations for findmax package.
+# Copyright (C) 2026 THE findmax'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the findmax package.
+# Automatically generated, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: findmax 1.1.0\n"
+"Report-Msgid-Bugs-To: findmax@bodz.net\n"
+"POT-Creation-Date: 2026-09-12 09:03+0800\n"
+"PO-Revision-Date: 2026-09-12 09:03+0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/main.c:49 src/main.c:76 src/heap.c:280
+#, c-format
+msgid "findmax: error processing '%s'\n"
+msgstr "findmax: خطأ أثناء معالجة '%s'\n"
+
+#: src/main.c:66 src/main.c:83 src/main.c:96 src/file_ops.c:120 src/heap.c:272
+#: src/heap.c:288 src/heap.c:296
+#, c-format
+msgid "findmax: memory allocation failed\n"
+msgstr "findmax: فشل تخصيص الذاكرة\n"
+
+#: src/main.c:118
+msgid ""
+"Usage: findmax [OPTION]... [FILE]...\n"
+"Find files with maximum values for specified criteria.\n"
+"Default behavior: show largest/newest files first (max-first).\n"
+msgstr ""
+"الاستخدام: findmax [خيار]... [ملف]...\n"
+"البحث عن الملفات ذات القيم القصوى وفق المعايير المحددة.\n"
+"السلوك الافتراضي: إظهار الأكبر/الأحدث أولاً (الأقصى أولاً).\n"
+
+#: src/main.c:123
+msgid "Options:\n"
+msgstr "الخيارات:\n"
+
+#: src/main.c:125
+msgid "recursive into directories\n"
+msgstr "الدخول إلى المجلدات بشكل متكرر\n"
+
+#: src/main.c:127
+msgid "normal order (smallest/oldest first)\n"
+msgstr "الترتيب العادي (الأصغر/الأقدم أولاً)\n"
+
+#: src/main.c:129
+msgid "access time\n"
+msgstr "وقت الوصول\n"
+
+#: src/main.c:131
+msgid "metadata change time\n"
+msgstr "وقت تغيير البيانات الوصفية\n"
+
+#: src/main.c:133
+msgid "file time (modification time)\n"
+msgstr "وقت الملف (وقت التعديل)\n"
+
+#: src/main.c:135
+msgid "select timestamp (atime/access/use, ctime/status,\n"
+msgstr "اختيار الختم الزمني (atime/access/use، ctime/status،\n"
+
+#: src/main.c:137
+msgid "mtime/modification, birth/creation)\n"
+msgstr "mtime/modification، birth/إنشاء)\n"
+
+#: src/main.c:139
+msgid "file size\n"
+msgstr "حجم الملف\n"
+
+#: src/main.c:141
+msgid "file name, order in current locale setting\n"
+msgstr "اسم الملف، الترتيب حسب الإعدادات المحلية الحالية\n"
+
+#: src/main.c:143
+msgid "print plain file only\n"
+msgstr "طباعة الملفات العادية فقط\n"
+
+#: src/main.c:145
+msgid "print directory only\n"
+msgstr "طباعة المجلدات فقط\n"
+
+#: src/main.c:147
+msgid "output format\n"
+msgstr "تنسيق الإخراج\n"
+
+#: src/main.c:149
+msgid "show top NUM files, default 1\n"
+msgstr "إظهار أول NUM ملفات، الافتراضي 1\n"
+
+#: src/main.c:151
+msgid "repeat for more verbose loggings\n"
+msgstr "كرر للحصول على سجلات أكثر تفصيلاً\n"
+
+#: src/main.c:153
+msgid "show less logging messages\n"
+msgstr "إظهار رسائل سجل أقل\n"
+
+#: src/main.c:155
+msgid "follow symbolic links\n"
+msgstr "اتباع الروابط الرمزية\n"
+
+#: src/main.c:157
+msgid "limit directory traversal depth\n"
+msgstr "تقييد عمق اجتياز المجلدات\n"
+
+#: src/main.c:159
+msgid "display this help and exit\n"
+msgstr "عرض هذه المساعدة والخروج\n"
+
+#: src/main.c:161
+msgid "output version information and exit\n"
+msgstr "عرض معلومات الإصدار والخروج\n"
+
+#: src/main.c:163
+#, c-format
+msgid "Report bugs to: <%s>\n"
+msgstr "الإبلاغ عن العلل إلى: <%s>\n"
+
+#: src/main.c:168
+#, c-format
+msgid "Copyright (C) %d %s\n"
+msgstr "Copyright (C) %d %s\n"
+
+#: src/main.c:169
+msgid "License AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
+msgstr "الرخصة AGPL-3.0-or-later: <https://www.gnu.org/licenses/agpl-3.0.html>\n"
+
+#: src/main.c:171
+msgid "This is free software: you are free to change and redistribute it.\n"
+msgstr "هذا برنامج حر: يمكنك تغييره وإعادة توزيعه بحرية.\n"
+
+#: src/main.c:172
+msgid "There is NO WARRANTY, to the extent permitted by law.\n"
+msgstr "لا توجد أي ضمانة، في الحدود التي يسمح بها القانون.\n"
+
+#: src/main.c:268
+#, c-format
+msgid "findmax: invalid time type '%s'\n"
+msgstr "findmax: نوع وقت غير صالح '%s'\n"
+
+#: src/main.c:277
+#, c-format
+msgid "findmax: invalid maxdepth '%s'\n"
+msgstr "findmax: maxdepth غير صالح '%s'\n"
+
+#: src/file_ops.c:148 src/file_ops.c:348 src/heap.c:231
+#, c-format
+msgid "findmax: path too long: %s/%s\n"
+msgstr "findmax: المسار طويل جداً: %s/%s\n"
