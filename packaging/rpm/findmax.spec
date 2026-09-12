@@ -57,9 +57,12 @@ meson install -C build --destdir=%{buildroot}
 
 %files
 %{_bindir}/findmax
+%{_prefix}/lib/*/libfindmax.so*
+%{_prefix}/lib/*/pkgconfig/findmax.pc
+%{_includedir}/findmax.h
+%{_datadir}/bash-completion/completions/findmax
 %{_mandir}/man1/findmax.1*
-%{_includedir}/*
-%{_datadir}/doc/findmax/
+%{_datadir}/doc/%{name}/
 
 %changelog
 * Thu Aug 20 2026 Lenik <findmax@bodz.net>

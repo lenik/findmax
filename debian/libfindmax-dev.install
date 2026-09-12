@@ -1,2 +1,3 @@
 usr/lib/*/libfindmax.so
+usr/lib/*/pkgconfig/findmax.pc
 usr/include/findmax.h
