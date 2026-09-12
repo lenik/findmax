@@ -1,21 +1,7 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@ --with bash-completion
+	dh $@ --buildsystem=meson --builddirectory=debian/build --with bash-completion
 
-override_dh_auto_configure:
-	# No configuration needed for Makefile
-
-override_dh_auto_build:
-	$(MAKE) PREFIX=/usr
-
-override_dh_auto_install:
-	$(MAKE) install PREFIX=/usr DESTDIR=$(CURDIR)/debian/tmp
-
-override_dh_install:
-	# Install files using install files (which handle multiarch paths with wildcards)
-	dh_install
-
-override_dh_clean:
-	$(MAKE) clean
-	dh_clean
+# Autotools leftovers must not run after Meson conversion.
+override_dh_autoreconf:

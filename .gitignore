@@ -12,6 +12,7 @@ build/
 build-lib/
 .deps/
 builddir/
+.cache/
 
 # Test artifacts
 test_dir/
@@ -41,9 +42,14 @@ desktop.ini
 
 # Debian build artifacts
 debian/tmp/
-debian/*/
+debian/.debhelper/
+debian/build/
+debian/findmax/
+debian/libfindmax1/
+debian/libfindmax-dev/
 debian/*.debhelper.log
 debian/*.substvars
+!debian/findmax.substvars
 debian/debhelper-build-stamp
 debian/files
 

@@ -1,3 +1,11 @@
+findmax (1.0.1) unstable; urgency=medium
+
+  * Move sources under src/ and align packaging with zephyr Meson layout.
+  * Build man pages from docs/*.adoc via asciidoctor.
+  * Switch license metadata to AGPL-3.0-or-later and add bas-c logger support.
+
+ -- Lenik (谢继雷) <lenik@bodz.net>  Sat, 12 Sep 2026 08:47:00 +0800
+
 findmax (1.0.0) unstable; urgency=medium
 
   * Initial release

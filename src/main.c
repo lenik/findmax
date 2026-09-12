@@ -1,6 +1,14 @@
 #include "findmax.h"
+#include "config.h"
+
+#include <bas/locale/i18n.h>
+#include <bas/proc/env.h>
 
 int main(int argc, char *argv[]) {
+    const char *exe = self_exe();
+    (void)exe;
+    init_i18n(LOCALEDIR);
+
     options_t opts = {0};
     char **paths = NULL;
     int path_count = 0;

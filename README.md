@@ -14,8 +14,9 @@ A fast file finding utility optimized for O(1) queries to find files with maximu
 ## Installation
 
 ```bash
-make
-sudo make install
+meson setup build
+ninja -C build
+sudo ninja -C build install
 ```
 
 ## Usage
